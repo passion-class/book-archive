@@ -33,7 +33,7 @@ def search_book(request):
                 else:
                     result = None
 
-    return render(request, 'test.html', {
+    return render(request, 'search.html', {
         'form': form,
         'book': result,
         'searched': searched
