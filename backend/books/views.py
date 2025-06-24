@@ -48,3 +48,8 @@ def search_book(request):
         'book': result,
         'searched': searched
     })
+
+def book_list(request):
+    books = Book.objects.all()
+    num = [0]
+    return render(request, 'book_list.html', {'books': books, 'num': num})
