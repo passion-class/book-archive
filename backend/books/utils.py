@@ -12,11 +12,19 @@ def fetch_book_data(title):
         data = response.json()
         if "items" in data:
             book = data["items"][0].get("volumeInfo", {})
+
+            identifiers = book.get("industryIdentifiers", [])
+            isbn_13 = next((id["identifier"] for id in identifiers if id["type"] == "ISBN_13"), None)
+            isbn_10 = next((id["identifier"] for id in identifiers if id["type"] == "ISBN_10"), None)
+            isbn = isbn_13 or isbn_10 or "unknown"
+
             return {
                 "title": book.get("title", "제목 없음"),
                 "authors": ", ".join(book.get("authors", ["저자 정보 없음"])),
                 "published_date": book.get("publishedDate", "출판일 정보 없음"),
                 "description": book.get("description", "설명 없음"),
-                "thumbnail": book.get("imageLinks", {}).get("thumbnail", "")
+                "thumbnail": book.get("imageLinks", {}).get("thumbnail", ""),
+                "isbn": isbn,
+                "publisher": book.get("publisher", "unknown")
             }
     return None
