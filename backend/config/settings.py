@@ -121,8 +121,9 @@ STATIC_URL = '/static/'
 # CSS 활용을 위한...
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    "/var/www/static/",
-    "/books/static",
+    # "/var/www/static/",
+    # "/books/static",
+
 
 ]
 
