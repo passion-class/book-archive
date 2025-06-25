@@ -16,6 +16,7 @@
                 <th>책</th>
                 <th>제목</th>
                 <th>저자</th>
+                <th>출판사</th>
             </tr>
         </thead>
         <tbody>
@@ -25,6 +26,7 @@
                 <td><span class="bookcover"><img src ="{{ book.thumbnail }}" alt="이미지 없음"></span></td>
                 <td>{{ book.title }}</td>
                 <td>{{ book.authors }}</td>
+                <td>{{ book.publisher }}</td>
             </tr>
             {% endfor %}
         </tbody>
