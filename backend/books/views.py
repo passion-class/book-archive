@@ -3,8 +3,6 @@ from .forms import BookSearchForm
 from .models import Book
 from .utils import fetch_book_data
 from django.contrib import messages
-from rest_framework.decorators import permission_classes
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from django.contrib.auth.decorators import login_required
 
