@@ -1,7 +1,9 @@
 from django.contrib.auth.forms import UserCreationForm as BaseUserCreaeionForm
 from django import forms
 from django.core.exceptions import ValidationError
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, login, authenticate, logout
+
+
 
 # User 모델 
 User = get_user_model()
@@ -26,3 +28,6 @@ class CreateUser(BaseUserCreaeionForm):
     class Meta(BaseUserCreaeionForm): # 기존 UserCreationForm의 Meta Class 상속 받아 사용.
         model = User
         fields = ('username', 'email', 'password1', 'password2') # 이메일 추가
+
+# # 로그인 form
+# class LogIn(login):
