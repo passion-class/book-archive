@@ -3,6 +3,8 @@ from users import views
 from django.contrib.auth import views as auth_views
 from .views import signup_view, my_info_view, logout_view
 
+app_name = 'users'
+
 urlpatterns = [
     path("signup/", views.signup_view, name="signup"),
     path("login/", views.login_view, name="login_view"),
