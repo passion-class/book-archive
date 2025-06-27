@@ -14,72 +14,35 @@
             어떤 취향을 가지고 있는지.<br>
         </p>
         <h4>어서오세요. 당신의 서재에.</h4>
-        <form id="signup">
-            <label for="username">ID</label>
-            <input type="text" id="username" name="username" required>
+        <form id="signup" method="post">
+            {% csrf_token %}
+            <!-- {{ form.as_p }} -->
+            <span class="username">ID</span> {{ form.username }} <br>
+            <span class="email">E-MAIL</span> {{ form.email }} <br>
+            <span class="password">PASSWORD</span> {{ form.password1 }} <br>
+            <span class="password2">CONFIRM PASSWORD</span> {{ form.password2 }} <br>
+            <button type="submit">개설하기</button>
+                {% if form.non_field_errors %}
+                    <ul class="error">
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
 
-            <label for="email">E-MAIL</label>
-            <input type="email" id="email" name="email" required>
-
-            <label for="password">PASSWORD</label>
-            <input type="password" id="password" name="password" required>
-
-            <button type="submit">"개설"</button>
+                <div>
+                    {% if form.password2.errors %}
+                        <ul class="error">
+                            {% for error in form.password2.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
         </form>
         <p>
             이미 만들어준 서재가 있다면 <a href="/login">"입장"</a>
         </p>
     </div> <!--background-->
-    <script>
-        document.getElementById('signup').addEventListener('submit', async function(event) {
-            event.preventDefault(); // 기본 제출 동작 및 새로고침 방지
-            const messageElement = document.getElementById('signupMessage');
-            //input 정보 ID(username), email, password
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            try {
-                // SignUpView API 데이터 전송
-                const response = await fetch('/api/signup/', { // API URL 연결식 
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json', // json 형식으로 데이터 전송
-                    },
-                    body: JSON.stringify({
-                        username : username,
-                        email : email,
-                        password : password
-                    }),
-                });
-                const data = await response.json(); // API 응답 > JSON 파싱
-
-                if (response.ok) { // 상태코드 200번대
-                    messageElement.textContent = data.message || '당신의 서재가 개설 되었습니다.';
-                    messageElement.style.color = 'green';
-                    //성공 후 로그인 페이지 연결
-                    setTimeout(() => {
-                        window.location.href = '/login/';
-                    }, 1500); // 1500 == 1.5초 후 이동
-                } else { // 상태코드 400, 500 번대
-                    // API 반환된 error 메세지 출력. 서버에서 보낸 에러메세지 (serializer.errors)
-                    let errorMessage = '개설에 실패했습니다.';
-                    if (data.username) errorMessage += `ID ${data.username.join(', ')}`;
-                    if (data.email) errorMessage += `ID ${data.email.join(', ')}`;
-                    if (data.password) errorMessage += `ID ${data.password.join(', ')}`;
-                    if (data.non_field_errors) errorMessage += `ID ${data.non_field_errors.join(', ')}`;
-
-                    messageElement.textContent = errorMessage.trim(); // 공백 제거
-                    messageElement.style.color = 'red';
-
-                }
-            } catch (error) {
-                // 네트워크 오류... >> 예상치 못한 오류 발생 시
-                console.error('개설 요청 중 오류 발생', error);
-                messageElement.textContent = '네트워크 오류 발생. 다시 시도해주세요.';
-                messageElement.style.color = 'red';
-            }
-        });
-    </script>
 </body>
 </html>
