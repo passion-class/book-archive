@@ -28,6 +28,3 @@ class CreateUser(BaseUserCreaeionForm):
     class Meta(BaseUserCreaeionForm): # 기존 UserCreationForm의 Meta Class 상속 받아 사용.
         model = User
         fields = ('username', 'email', 'password1', 'password2') # 이메일 추가
-
-# # 로그인 form
-# class LogIn(login):
