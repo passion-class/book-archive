@@ -29,6 +29,15 @@
                 </tbody>
             </table>
         </fieldset>
+        <!-- <a href="{% url 'users:logout' %}">로그-아웃</a> -->
+        {% if user.is_authenticated %}
+        <form action="{% url 'users:logout' %}" method="post" style="display:inline;">
+            {% csrf_token %} {# Django 폼 보안을 위한 필수 토큰 #}
+            <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer; font:inherit; padding:0;">로그-아웃</button>
+        </form>
+        <!-- {% else %}
+            <a href="{% url 'users:login' %}">로그인</a>
+        {% endif %} -->
     </div> <!--background-->
 </body>
 </html>

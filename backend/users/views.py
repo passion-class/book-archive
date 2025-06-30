@@ -52,7 +52,25 @@ def login_view(request):
     else: # GET 요청시 페이지 호출
         return render(request, 'login.html')
 
+# # 로그아웃
+# def logout_view(request):
+#     if request.method == 'POST':
+#             logout(request)
+#     # return render(request, 'logout.html')
+#     return redirect("users:login")
+#     # return redirect('/users/login/') # test
+
+
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 # 로그아웃
 def logout_view(request):
-    logout(request)
-    return redirect("users:login")
+    if request.method == 'POST':
+        logout(request) # POST 요청일 때만 실제 로그아웃 처리
+        # HttpResponseRedirect와 reverse를 사용하여 명확한 절대 경로로 리디렉션
+        return HttpResponseRedirect(reverse("users:login"))
+    else:
+        # GET 요청일 경우 (예: <a> 태그 클릭)
+        # 실제 로그아웃 처리는 하지 않고, 로그인 페이지로 리디렉션
+        # (보안상 POST 요청으로 로그아웃을 유도하는 것이 좋으므로, GET 요청은 단순히 리디렉션만)
+        return HttpResponseRedirect(reverse("users:login"))
