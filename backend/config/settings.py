@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'users.apps.UsersConfig',
     'corsheaders',
-    'common'
+    'common.apps.CommonConfig',
     'home.apps.HomeConfig',
 ]
 
