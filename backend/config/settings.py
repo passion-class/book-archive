@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'corsheaders',
     'common'
-
+    'home.apps.HomeConfig',
 ]
 
 MIDDLEWARE = [
