@@ -41,8 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'users.apps.UsersConfig',
     'corsheaders',
+    'common'
     'home.apps.HomeConfig',
-
 ]
 
 MIDDLEWARE = [

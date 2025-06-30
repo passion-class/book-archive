@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    {% load static %} <!--css 파일 연결 import-->
+    <link href="{% static 'users/css/my_info.css' %}" rel="stylesheet"> <!--css 파일 연결-->
+    <title>{{ username }}의 공간</title>
+</head>
+<body>
+    {% csrf_token %}
+    <div class = background>
+        <h4>어서오세요. 당신의 서재에.</h4>
+        <h2>{{ username }}의 공간</h2>
+        <fieldset>
+            <legend><h4>INFO</h4></legend>
+            <table class="intable">
+                <thead></thead>
+                <tbody>
+                    <tr>
+                        <td class="cat"><p>ID</p></td>
+                        <td class="separator">&nbsp; &nbsp; | &nbsp; &nbsp;</td>
+                        <td class="info"> {{ username }} </td>
+                    </tr>
+                    <tr>
+                        <td class="cat"><p>E-MAIL</p></td>
+                        <td class="separator">&nbsp; &nbsp; | &nbsp; &nbsp;</td>
+                        <Td class="info"> {{ email }}</Td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+        {% if user.is_authenticated %}
+        <form action="{% url 'common:logout' %}" method="post" style="display:inline;">
+            {% csrf_token %} {# Django 폼 보안을 위한 필수 토큰 #}
+            <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer; font:inherit; padding:0;">로그-아웃</button>
+        </form>
+        {% else %}
+            <a href="{% url 'common:login' %}">로그인</a>
+        {% endif %}
+    </div> <!--background-->
+</body>
+</html>
