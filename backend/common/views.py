@@ -12,7 +12,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user: # 로그인 기능
             log_in = login(request, user)
-            return redirect("users:info")
+            return redirect("book:book_list")
         else:
             error = "아이디 또는 비밀번호가 틀렸습니다"
             return render(request, 'login.html', {'error': error})
