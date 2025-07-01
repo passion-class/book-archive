@@ -49,3 +49,19 @@ form {
     border-radius: 5px;
     font-family: 'KCCChassam';
 }
+
+.label {
+    font-size: 20px;
+    text-align: right;
+}
+
+table {
+    width: 100%;
+    /* border-collapse: collapse; */
+    /* margin-top: 20px; */
+    border-color: black;
+}
+
+.in {
+    text-align: left;
+}
