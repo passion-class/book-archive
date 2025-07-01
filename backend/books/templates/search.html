@@ -27,7 +27,7 @@
       <hr>
       <h2>검색 결과</h2>
 
-<form method="post" action="{% url 'save_selected_books' %}">
+<form method="post" action="{% url 'book:save_selected_books' %}">
     {% csrf_token %}
 
     {% for book in books %}

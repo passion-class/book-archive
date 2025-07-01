@@ -11,7 +11,7 @@ from django.utils.html import escapejs
 from django.forms.models import model_to_dict
 
 
-# @login_required
+@login_required
 def search_book(request):
     form = BookSearchForm()
     results = []
@@ -82,13 +82,13 @@ def search_book(request):
 
     })
 
-# @login_required
+@login_required
 def book_list(request):
     books = Book.objects.all()
     num = [0]
     return render(request, 'book_list.html', {'books': books, 'num': num})
 
-# @login_required
+@login_required
 @csrf_exempt
 def save_selected_books(request):
     if request.method == 'POST':
@@ -127,7 +127,7 @@ def save_selected_books(request):
                 )
 
         messages.success(request, f"{len(selected_isbns)}개의 책이 저장되었습니다")
-        return redirect('book_list')
+        return redirect('book:book_list')
 
 
 
