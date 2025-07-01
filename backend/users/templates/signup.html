@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    {% load static %} <!--css 파일 연결 import-->
+    <link href="{% static 'users/css/signup.css' %}" rel="stylesheet"> <!--css 파일 연결-->
+    <title>서재 만들기</title>
+</head>
+<body>
+    <div class = background>
+        <!-- <H1>여기는 당신의 서재,</H1> -->
+        <p>
+            어떤 책을 가지고 있는지,<br>
+            어떤 취향을 가지고 있는지.<br>
+        </p>
+        <h4>어서오세요. 당신의 서재에.</h4>
+        <h2>서재 만들기</h2>
+        <form id="signup" method="post">
+            {% csrf_token %}
+            <!-- {{ form.as_p }} -->
+            <span class="username">ID</span> {{ form.username }} <br>
+            <span class="email">E-MAIL</span> {{ form.email }} <br>
+            <span class="password">PASSWORD</span> {{ form.password1 }} <br>
+            <span class="password2">CONFIRM PASSWORD</span> {{ form.password2 }} <br>
+            <button type="submit">개설하기</button>
+                {% if form.non_field_errors %}
+                    <ul class="error">
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <div>
+                    {% if form.password2.errors %}
+                        <ul class="error">
+                            {% for error in form.password2.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+        </form>
+        <p>
+            이미 만들어둔 서재가 있다면 <a href="{% url 'common:login' %}">"입장"</a>
+        </p>
+    </div> <!--background-->
+</body>
+</html>

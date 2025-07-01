@@ -1,42 +1,37 @@
-# from rest_framework.permissions import IsAuthenticated
-# from rest_framework.views import APIView
-# from rest_framework.response import Response
-# from rest_framework import status
-# from .serializer import SignUpSerializer
-#
-#
-# # 화원가입
-# class SignUpView(APIView):
-#     def post(self, request):
-#         serializer = SignUpSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response({"message": "회원가입 성공"}, status=201)
-#         return Response(serializer.errors, status=400)
-# # 회원정보
-# class MyInfoView(APIView):
-#     permission_classes = [IsAuthenticated]
-#
-#     def get(self, request):
-#         return Response({
-#             "username": request.user.username,
-#             "email" : request.user.email,
-#         })
-#
-# # 로그아웃
-# from rest_framework_simplejwt.views import TokenRefreshView
-# from rest_framework_simplejwt.tokens import RefreshToken
-# from rest_framework.permissions import IsAuthenticated
-# from rest_framework.views import APIView
-# from rest_framework.response import Response
-#
-# class LogoutView(APIView):
-#     def post(self, request):
-#         try:
-#             refresh_token = request.data['refresh']
-#             token = RefreshToken(refresh_token)
-#             token.blacklist()
-#             return Response({"message": "로그아웃 성공"}, status=200)
-#         except Exception as e:
-#             print(e)
-#             return Response({"message": "로그아웃 실패"}, status=400)
+# from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import redirect, render
+from django.contrib import messages # 메세지 프레임워크
+# from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required # 데코레이터 임포트
+from django.contrib.auth.views import LoginView
+from users.forms import CreateUser
+
+
+# import ipdb
+
+# 회원 가입
+def signup_view(request):
+    if request.method == "POST":
+        form = CreateUser(request.POST)
+        if form.is_valid(): # 데이터 유효하면 사용자 정보 db 저장
+            print('조건 충족')
+            # ipdb.set_trace() # 폼 유효성 검사 후 디버거 실행
+            form.save()
+            print('가입 완료')
+            return redirect("common:login") # 성공시 로그인 페이지로 이동
+        else:
+            messages.error(request, '입력 정보를 다시 확인해주세요.')
+            return render(request, 'signup.html', {'form': form}) # 에러 문장 출력 및 재 작성 위한 폼 출력
+    else: # GET 요청
+        form = CreateUser() # 회원가입 form 생성
+        return render(request, 'signup.html', {'form':form})
+    
+# 회원정보
+# 로그인 후 접속할 수 있는 페이지이므로 로그인 관련 데코레이터 사용
+@login_required
+def my_info_view(request):
+    if request.method == 'GET':
+        return render(request, "my_info.html", {
+            "username": request.user.username,
+            "email": request.user.email,
+            })
