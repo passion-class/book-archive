@@ -138,9 +138,9 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 세션 기반 로그인 리디렉션 설정
-LOGIN_URL = 'users/login/'
-LOGIN_REDIRECT_URL = 'books/search/'
-LOGOUT_REDIRECT_URL = 'users/login/'
+LOGIN_URL = '/users/login/'
+LOGIN_REDIRECT_URL = '/books/search/'
+LOGOUT_REDIRECT_URL = '/users/login/'
 
 
 
