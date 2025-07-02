@@ -38,13 +38,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'books.apps.BooksConfig',
-
+    'rest_framework',
+    'users.apps.UsersConfig',
+    'corsheaders',
+    'common.apps.CommonConfig',
+    'home.apps.HomeConfig',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -131,3 +136,12 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# 세션 기반 로그인 리디렉션 설정
+LOGIN_URL = '/users/login/'
+LOGIN_REDIRECT_URL = '/books/search/'
+LOGOUT_REDIRECT_URL = '/users/login/'
+
+
+
+

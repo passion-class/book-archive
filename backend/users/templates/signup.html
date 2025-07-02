@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    {% load static %} <!--css 파일 연결 import-->
+    <link href="{% static 'users/css/signup.css' %}" rel="stylesheet"> <!--css 파일 연결-->
+    <title>서재 만들기</title>
+</head>
+<body>
+    <div class = background>
+        <!-- <H1>여기는 당신의 서재,</H1> -->
+        <p>
+            어떤 책을 가지고 있는지,<br>
+            어떤 취향을 가지고 있는지.<br>
+        </p>
+        <h4>어서오세요. 당신의 서재에.</h4>
+        <h2>서재 만들기</h2>
+        <form id="signup" method="post">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td><span class="id label">아이디</span></td>
+                    <td class="in">{{ form.username }}</td>
+                </tr>
+                <tr>
+                    <td><span class="email label">이-메일</span></td>
+                    <td class="in">{{ form.email }}</td>
+                </tr>
+                    <td><span class="password label">비밀번호</span></td>
+                    <td class="in">{{ form.password1 }} </td>
+                <tr>
+                    <td><span class="password2 label">비밀번호 확인</span></td>
+                    <td class="in">{{ form.password2 }}</td>
+                </tr>
+            </table>
+                <button type="submit" class="but">개설하기</button>
+                {% if form.non_field_errors %}
+                    <ul class="error">
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <div>
+                    {% if form.password2.errors %}
+                        <ul class="error">
+                            {% for error in form.password2.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+        </form>
+        <p>
+            이미 만들어둔 서재가 있다면 <a href="{% url 'common:login' %}">"입장"</a>
+        </p>
+    </div> <!--background-->
+</body>
+</html>

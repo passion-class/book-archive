@@ -1,58 +1,64 @@
+
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  {% load static %} <!--css 파일 연결 import-->
-  <link href="{% static 'books/css/search.css' %}" rel="stylesheet"> <!--css 파일 연결-->
-  <title>책 검색 및 등록</title>
+  <link href="{% static 'books/css/search.css' %}" rel="stylesheet">
+  <title>책 검색 및 선택 저장</title>
 </head>
 <body>
-  <div class = background>
-    <H1>여기는 당신의 서재,</H1>
-    어떤 책을 가지고 있는지,<br>
-    어떤 취향을 가지고 있는지.<br>
+  <div class="background">
+    <h1>여기는 당신의 서재,</h1>
+    <p>어떤 책을 가지고 있는지,<br>어떤 취향을 가지고 있는지.</p>
 
-    <h4>당신의</h4>
     <h3>📚 책 제목을 입력하세요 📚</h3>
 
-    <!-- 🔍 검색/등록 폼 -->
+    <!-- 🔍 검색 폼 -->
     <form method="post">
       {% csrf_token %}
-      <input type="text" name="title" id="id_title" placeholder="최대한 정확하게 입력해주세요.">
-
-      {% if form.title.errors %}
-        <p style="color: red;">{{ form.title.errors.0 }}</p>
-      {% endif %}
-
-      <button type="submit" class="but">검색 또는 등록</button>
+      <!-- <input type="text" name="title" id="id_title" placeholder="최대한 정확하게 입력해주세요."> -->
+      {{ form.as_p }}
+      <button type="submit" name="search" class="but">책 검색</button>
     </form>
 
-    <!-- ✅ 검색 결과 -->
-    {% if searched %}
-      {% if book %}
-        <hr>
-        <h2>📖 검색 결과</h2>
-        <p><strong>제목:</strong> {{ book.title }}</p>
-        <p><strong>저자:</strong> {{ book.authors }}</p>
-        <p><strong>출판일:</strong> {{ book.published_date }}</p>
+    <!-- ✅ 검색 결과 있으면 출력 -->
 
-        {% if book.thumbnail %}
-          <img src="{{ book.thumbnail }}" alt="책 이미지" style="width:100px;"><br>
-        {% endif %}
+      <hr>
+      <h2>검색 결과</h2>
 
-        <p>{{ book.description }}</p>
+    <form method="post" action="{% url 'book:save_selected_books' %}">
+        {% csrf_token %}
 
-        <!-- 🗑 삭제 버튼 -->
-        <form method="post">
-          {% csrf_token %}
-          <input type="hidden" name="title" value="{{ book.title }}">
-          <button type="submit" name="delete">삭제</button>
-        </form>
+        {% for book in books %}
+          <div>
+            <input type="checkbox" name="selected_books" value="{{ book.isbn }}">
+            <strong>{{ book.title }}</strong><br>
+            <em>{{ book.authors }}</em><br>
+            <small>{{ book.publisher }} / {{ book.published_date }}</small><br>
+            {% if book.thumbnail %}
+              <img src="{{ book.thumbnail }}" width="100"><br>
+            {% endif %}
+            {{ book.description|truncatechars:300 }}
+          </div>
+        {% endfor %}
+        <input type="hidden" name="book_data_json" id="bookDataJson">
+        <button type="submit" class="but">서재에 저장</button>
+    </form>
+    <pre>book_data_json preview: {{ book_data_json|escapejs }}</pre>
 
-      {% else %}
-        <p>❌ 해당 책은 데이터베이스에 없습니다.</p>
-      {% endif %}
-    {% endif %}
-  </div> <!--background-->
+  </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        try {
+          const rawJson = '{{ book_data_json|escapejs }}';
+          const bookData = JSON.parse(rawJson);
+          const input = document.getElementById("bookDataJson");
+          input.value = JSON.stringify(bookData);
+        } catch (e) {
+          console.error("book_data_json 렌더링 오류:", e);
+        }
+      });
+    </script>
 </body>
 </html>

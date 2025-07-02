@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    {% load static %} <!--css 파일 연결 import-->
+    <link href="{% static 'home/css/home.css' %}" rel="stylesheet"> <!--css 파일 연결-->
+    <title>Log IN</title>
+</head>
+<body>
+    <div class = background>
+        <p>
+            어떤 책을 가지고 있는지,<br>
+            어떤 취향을 가지고 있는지.<br>
+        </p>
+        <h4>어서오세요. 당신의 서재에.</h4>    
+        <a href="{% url 'users:signup' %}" class="button">시작</a>
+        </form>
+    </div> <!--background-->
+</body>
+</html>

@@ -12,6 +12,9 @@ __pycache__/
 *.sqlite3
 db.sqlite3
 
+# Django migrations folder
+*/migrations/
+
 # PyCharm 설정 폴더
 .idea/
 
