@@ -43,8 +43,15 @@ form {
 
 #id_title,
 .but {
+    background-color: rgba(255, 240, 230, 0.7);
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
     padding: 10px 15px;
     font-size: 16px;
+    font-weight: normal;
     border: 1px;
     border-radius: 5px;
     font-family: 'KCCChassam';

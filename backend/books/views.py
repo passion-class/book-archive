@@ -12,7 +12,7 @@ from django.forms.models import model_to_dict
 
 
 @login_required
-def search_book(request):
+def search_book(request): # 책 검색 기능
     form = BookSearchForm()
     results = []
     searched = False
@@ -83,14 +83,14 @@ def search_book(request):
     })
 
 @login_required
-def book_list(request):
+def book_list(request): # 등록된 책 목록 확인 페이지
     books = Book.objects.all()
     num = [0]
     return render(request, 'book_list.html', {'books': books, 'num': num})
 
 @login_required
 @csrf_exempt
-def save_selected_books(request):
+def save_selected_books(request): # 책 데이터 저장
     if request.method == 'POST':
         selected_isbns = request.POST.getlist('selected_books')
         book_data_json =request.POST.get('book_data_json')
