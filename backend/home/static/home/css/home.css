@@ -37,14 +37,17 @@ html { /* 전체 배경 */
 
 .button {
     background-color: rgba(255, 240, 230, 0.7);
-    border: none;
     color: black;
-    padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
     cursor: pointer;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: normal;
+    border: 1px;
+    border-radius: 5px;
+    font-family: 'KCCChassam';
 }
 
     strong {
