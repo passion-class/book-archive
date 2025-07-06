@@ -62,9 +62,9 @@ form {
     flex-direction: column; /* 아이템들을 세로(열) 방향으로 쌓습니다. */
     gap: 15px; /* 각 폼 그룹(라벨+입력) 사이의 수직 간격 */
     width: 100%; /* 부모 요소에 맞춰 너비 설정 */
-    max-width: 400px; /* 폼의 최대 너비 지정 (중앙 정렬 시 필요) */
+    /* max-width: 400px; 폼의 최대 너비 지정 (중앙 정렬 시 필요) */
     margin: 50px auto; /* 위아래 50px, 좌우 auto로 중앙 정렬 */
-    padding: 30px;
+    padding: 20px;
 }
 
 .login label {
@@ -95,4 +95,5 @@ form {
 
 .ment {
     font-size: 18px;
+    text-align: center;
 }
