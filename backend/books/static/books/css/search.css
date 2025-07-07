@@ -56,3 +56,92 @@ form {
     border-radius: 5px;
     font-family: 'KCCChassam';
 }
+
+/*nav*/
+.navlin { /*목록 추가 시 리스트로 변환, 사용 */
+    list-style: none; /* 목록 마커 제거 */
+    padding: 0;       /* 기본 패딩 제거 */
+    margin: 0;        /* 기본 마진 제거 */
+
+    display: flex;    /* 자식 요소(li)를 flex item으로 만듦 */
+    justify-content: flex-end; /* flex item들을 컨테이너의 끝(오른쪽)으로 정렬 */
+
+    width: 100%; /* 부모 너비에 맞춤 (필요시) */
+
+    text-decoration: none;
+    color: rgb(37, 22, 3);
+    font-size: 20px;
+}
+
+nav ul li {
+    /* 각 항목 간의 간격 (선택 사항) */
+    margin-left: 20px; /* 오른쪽으로 배치되므로 왼쪽에 마진을 주는 것이 자연스러움 */
+}
+
+nav a {
+    display: block;
+    padding: 15px 20px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* search list page */
+.con { /* 각 .searchlist들을 감싸는 부모 컨테이너 */
+    display: flex; /* Flexbox 레이아웃 사용 */
+    flex-wrap: wrap; /* 화면 너비에 따라 줄 바꿈 활성화 */
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    gap: 20px; /* 책 정보 아이템 사이의 간격 */
+    padding: 20px; /* 컨테이너 내부 여백 */
+    max-width: 100%; /* 컨테이너 최대 너비 (필요시 조절) */
+    margin: 0 auto; /* 중앙 정렬 (선택 사항) */
+}
+
+.searchlist { /* 각 책 정보를 담는 개별 카드 */
+    font-size: 20px;
+    /* Flex 컨테이너의 자식(Flex 아이템)으로 동작하도록 너비 조정 */
+    width: calc(33.33% - 13.33px); /* 3개씩 정렬, gap 20px을 고려한 너비 */
+    /* (100% - (2 * gap)) / 3 = (100% - 40px) / 3 = 33.33% - 13.33px */
+    margin-bottom: 0; /* 부모 컨테이너의 gap으로 세로 간격 처리 */
+    border: 1px solid #ddd;
+    border-radius: 8px; /* 카드 모서리 둥글게 */
+    padding: 15px;
+    box-sizing: border-box; /* 패딩과 테두리가 너비에 포함되도록 */
+    text-align: center;
+    background-color: rgba(255, 240, 230, 0.7); /* 카드 배경색 */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* 카드 그림자 */
+    display: flex; /* searchlist 내부 콘텐츠를 세로 정렬하기 위해 Flexbox 적용 */
+    flex-direction: column; /* 세로 정렬 */
+    justify-content: space-between; /* 내용이 위아래로 고루 퍼지게 */
+}
+
+/* 아래는 기존 .searchlist 내부 테이블 및 이미지 관련 스타일 */
+.searchlist table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px; /* 테이블 아래 여백 */
+}
+
+.searchlist td {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    text-align: left; /* 테이블 셀 텍스트는 왼쪽 정렬이 보기 좋을 수 있음 */
+    word-break: break-word; /* 긴 텍스트 줄바꿈 */
+}
+
+.searchlist td:first-child { /* 첫 번째 td (체크박스)는 테두리 없앰 */
+    border-top: none;
+    text-align: center; /* 체크박스 가운데 정렬 */
+}
+
+.searchlist td:last-child { /* 마지막 td (설명)은 테두리 없앰 */
+    border-bottom: none;
+}
+
+.searchlist img {
+    max-width: 100px; /* 이미지 너비 100px로 고정 */
+    height: auto;
+    display: block;
+    margin: 10px auto; /* 이미지 가운데 정렬 */
+    border-radius: 5px; /* 이미지 모서리 둥글게 */
+}

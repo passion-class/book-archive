@@ -9,6 +9,9 @@
 </head>
 <body>
   <div class="background">
+    <header>
+      <a href="{% url 'book:book_list' %}" class="navlin">내 서재로 ...</a>
+    </header>
     <h1>여기는 당신의 서재,</h1>
     <p>어떤 책을 가지고 있는지,<br>어떤 취향을 가지고 있는지.</p>
 
@@ -18,7 +21,8 @@
     <form method="post">
       {% csrf_token %}
       <!-- <input type="text" name="title" id="id_title" placeholder="최대한 정확하게 입력해주세요."> -->
-      {{ form.as_p }}
+      <!-- {{ form.as_p }} -->
+      {{ form.title }}
       <button type="submit" name="search" class="but">책 검색</button>
     </form>
 
@@ -29,23 +33,40 @@
 
     <form method="post" action="{% url 'book:save_selected_books' %}">
         {% csrf_token %}
-
+      <div class="con">
         {% for book in books %}
-          <div>
-            <input type="checkbox" name="selected_books" value="{{ book.isbn }}">
-            <strong>{{ book.title }}</strong><br>
-            <em>{{ book.authors }}</em><br>
-            <small>{{ book.publisher }} / {{ book.published_date }}</small><br>
-            {% if book.thumbnail %}
-              <img src="{{ book.thumbnail }}" width="100"><br>
-            {% endif %}
-            {{ book.description|truncatechars:300 }}
-          </div>
+          <div class="searchlist">
+            <table>
+              <tbody>
+                <tr>
+                  <td><input type="checkbox" name="selected_books" value="{{ book.isbn }}"></td>
+                </tr>
+                <tr>
+                  <td>{{ book.title }}</td>
+                </tr>
+                <tr>
+                  <td>{{ book.authors }}</td>
+                </tr>
+                <tr>
+                  <td>{{ book.publisher }} / {{ book.published_date }}</td>
+                </tr>
+                  {% if book.thumbnail %}
+                <tr>
+                  <td><img src="{{ book.thumbnail }}" width="100"></td>
+                </tr>
+                  {% endif %}
+                <tr>
+                  <td>{{ book.description|truncatechars:300 }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div> <!--searchlist-->
         {% endfor %}
+      </div><!--con-->
         <input type="hidden" name="book_data_json" id="bookDataJson">
         <button type="submit" class="but">서재에 저장</button>
     </form>
-  </div>
+  </div> <!--background-->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         try {
