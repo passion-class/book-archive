@@ -17,12 +17,23 @@
         <h2>서재 만들기</h2>
         <form id="signup" method="post">
             {% csrf_token %}
-            <!-- {{ form.as_p }} -->
-            <span class="username">ID</span> {{ form.username }} <br>
-            <span class="email">E-MAIL</span> {{ form.email }} <br>
-            <span class="password">PASSWORD</span> {{ form.password1 }} <br>
-            <span class="password2">CONFIRM PASSWORD</span> {{ form.password2 }} <br>
-            <button type="submit">개설하기</button>
+            <table>
+                <tr>
+                    <td><span class="id label">아이디</span></td>
+                    <td class="in">{{ form.username }}</td>
+                </tr>
+                <tr>
+                    <td><span class="email label">이-메일</span></td>
+                    <td class="in">{{ form.email }}</td>
+                </tr>
+                    <td><span class="password label">비밀번호</span></td>
+                    <td class="in">{{ form.password1 }} </td>
+                <tr>
+                    <td><span class="password2 label">비밀번호 확인</span></td>
+                    <td class="in">{{ form.password2 }}</td>
+                </tr>
+            </table>
+                <button type="submit" class="but">개설하기</button>
                 {% if form.non_field_errors %}
                     <ul class="error">
                         {% for error in form.non_field_errors %}

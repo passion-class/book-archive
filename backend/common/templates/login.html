@@ -16,15 +16,18 @@
         <h2>로그-인</h2>
         <form id="login" method="post">
             {% csrf_token %}
-            <label for="username">ID</label> 
-            <input type="text" id="username" name="username" class="login">
-            <label for="password">PASSWORD</label>
-            <input type="password" id="password" name="password" class="login">
-            <button type="submit">입장</button>
-            <p>
+            <div class="login">
+                <label for="username">아이디</label> 
+                <input type="text" id="username" name="username" class="login linput">
+            </div>
+            <div class="login">
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" name="password" class="login linput">
+            </div>
+            <button type="submit" class="but">입장</button>
+            <p class="ment">
                 아직 서재를 보유하고 있지 않다면 ...<a href="{% url 'users:signup' %}">나만의 서재 만들기</a>
             </p>
-            <!-- {{ form.as_p }} -->
         </form>
     </div> <!--background-->
 </body>

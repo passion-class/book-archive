@@ -17,9 +17,9 @@
     <!-- 🔍 검색 폼 -->
     <form method="post">
       {% csrf_token %}
-      <input type="text" name="title" id="id_title" placeholder="최대한 정확하게 입력해주세요.">
+      <!-- <input type="text" name="title" id="id_title" placeholder="최대한 정확하게 입력해주세요."> -->
       {{ form.as_p }}
-      <button type="submit" name="search">검색</button>
+      <button type="submit" name="search" class="but">책 검색</button>
     </form>
 
     <!-- ✅ 검색 결과 있으면 출력 -->
@@ -27,38 +27,36 @@
       <hr>
       <h2>검색 결과</h2>
 
-<form method="post" action="{% url 'book:save_selected_books' %}">
-    {% csrf_token %}
+    <form method="post" action="{% url 'book:save_selected_books' %}">
+        {% csrf_token %}
 
-    {% for book in books %}
-      <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
-        <input type="checkbox" name="selected_books" value="{{ book.isbn }}">
-        <strong>{{ book.title }}</strong><br>
-        <em>{{ book.authors }}</em><br>
-        <small>{{ book.publisher }} / {{ book.published_date }}</small><br>
-        {% if book.thumbnail %}
-          <img src="{{ book.thumbnail }}" width="100"><br>
-        {% endif %}
-        {{ book.description|truncatechars:300 }}
-      </div>
-    {% endfor %}
-    <input type="hidden" name="book_data_json" id="bookDataJson">
-    <button type="submit">선택한 책 저장</button>
-</form>
-<pre>book_data_json preview: {{ book_data_json|escapejs }}</pre>
-
+        {% for book in books %}
+          <div>
+            <input type="checkbox" name="selected_books" value="{{ book.isbn }}">
+            <strong>{{ book.title }}</strong><br>
+            <em>{{ book.authors }}</em><br>
+            <small>{{ book.publisher }} / {{ book.published_date }}</small><br>
+            {% if book.thumbnail %}
+              <img src="{{ book.thumbnail }}" width="100"><br>
+            {% endif %}
+            {{ book.description|truncatechars:300 }}
+          </div>
+        {% endfor %}
+        <input type="hidden" name="book_data_json" id="bookDataJson">
+        <button type="submit" class="but">서재에 저장</button>
+    </form>
   </div>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    try {
-      const rawJson = '{{ book_data_json|escapejs }}';
-      const bookData = JSON.parse(rawJson);
-      const input = document.getElementById("bookDataJson");
-      input.value = JSON.stringify(bookData);
-    } catch (e) {
-      console.error("book_data_json 렌더링 오류:", e);
-    }
-  });
-</script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        try {
+          const rawJson = '{{ book_data_json|escapejs }}';
+          const bookData = JSON.parse(rawJson);
+          const input = document.getElementById("bookDataJson");
+          input.value = JSON.stringify(bookData);
+        } catch (e) {
+          console.error("book_data_json 렌더링 오류:", e);
+        }
+      });
+    </script>
 </body>
 </html>
