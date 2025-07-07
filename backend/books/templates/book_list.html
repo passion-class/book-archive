@@ -8,11 +8,18 @@
 </head>
 <body>
     <div class = background>
-    <H1 class="title">당신의 서재</H1>
+        <header>
+            <ul class="navul">
+                <li class="navlin"><a href="{% url 'users:info' %}" class="navlin">나의 공간</a></li>
+                <li class="navlin">|</li>
+                <li class="navlin"><a href="{% url 'book:search_book' %}" class="navlin">책 찾으러 ...</a></li>
+            </ul>
+    </header>
+        <H1 class="title">당신의 서재</H1>
         {% if messages %}
         <ul class="messages">
             {% for message in messages %}
-            <li {% if message.tags %} class="{{ message.tags}}"{% endif%}>{{ message }}</li>
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif%}>{{ message }}</li>
             {% endfor %}
         </ul>
         {% endif %}
