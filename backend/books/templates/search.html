@@ -10,7 +10,11 @@
 <body>
   <div class="background">
     <header>
-      <a href="{% url 'book:book_list' %}" class="navlin">내 서재로 ...</a>
+      <ul class="navul">
+        <li class="navlin"><a href="{% url 'users:info'}" class="navlin">나의 공간</a></li>
+        <li class="navlin">|</li>
+        <li class="navlin"><a href="{% url 'book:book_list' %}" class="navlin">내 서재로 ...</a></li>
+      </ul>
     </header>
     <h1>여기는 당신의 서재,</h1>
     <p>어떤 책을 가지고 있는지,<br>어떤 취향을 가지고 있는지.</p>
