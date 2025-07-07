@@ -79,8 +79,6 @@ nav ul li {
     font-size: 20px;
 }
 
-
-
 /* search list page */
 .con { /* 각 .searchlist들을 감싸는 부모 컨테이너 */
     display: flex; /* Flexbox 레이아웃 사용 */
