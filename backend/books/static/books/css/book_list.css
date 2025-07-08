@@ -51,3 +51,25 @@ table {
 .title {
     text-align: center;
 }
+
+/*nav*/
+.navul { /*목록 추가 시 리스트로 변환, 사용 */
+    list-style: none; /* 목록 마커 제거 */
+    padding: 0;       /* 기본 패딩 제거 */
+    margin: 0;        /* 기본 마진 제거 */
+
+    display: flex;    /* 자식 요소(li)를 flex item으로 만듦 */
+    justify-content: flex-end; /* flex item들을 컨테이너의 끝(오른쪽)으로 정렬 */
+
+    width: 100%; /* 부모 너비에 맞춤 (필요시) */
+}
+
+nav ul li {
+    /* 각 항목 간의 간격 (선택 사항) */
+    margin-left: 20px; /* 오른쪽으로 배치되므로 왼쪽에 마진을 주는 것이 자연스러움 */
+}
+.navlin {
+    text-decoration: none;
+    color: rgb(37, 22, 3);
+    font-size: 20px;
+}
