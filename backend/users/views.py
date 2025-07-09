@@ -5,6 +5,7 @@ from django.contrib import messages # 메세지 프레임워크
 from django.contrib.auth.decorators import login_required # 데코레이터 임포트
 from django.contrib.auth.views import LoginView
 from users.forms import CreateUser
+from django.contrib.auth import logout
 
 
 # import ipdb
