@@ -9,6 +9,13 @@
 <body>
     {% csrf_token %}
     <div class = background>
+        <header>
+            <ul class="navul">
+                <li class="navlin"><a href="{% url 'book:search_book' %}" class="navlin">책 찾으러 ...</a></li>
+                <li class="navlin">|</li>
+                <li class="navlin"><a href="{% url 'book:book_list' %}" class="navlin">내 서재로 ...</a></li>
+            </ul>
+    </header>
         <h4>어서오세요. 당신의 서재에.</h4>
         <h2>{{ username }}의 공간</h2>
         <fieldset>
