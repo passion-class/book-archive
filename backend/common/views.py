@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.contrib.auth import login, authenticate, logout
+from django.contrib import messages
 
 # 로그인
 def login_view(request):
@@ -21,8 +22,8 @@ def login_view(request):
     
 # 로그아웃
 def logout_view(request):
-    if request.method == 'POST':
-            logout(request)
+    logout(request)
+    messages.success(request, "로그아웃되었습니다")
     # return render(request, 'logout.html')
     return redirect("common:login")
     # return redirect('/users/login/') # test
