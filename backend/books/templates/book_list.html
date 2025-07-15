@@ -15,7 +15,7 @@
                 <li class="navlin"><a href="{% url 'book:search_book' %}" class="navlin">책 찾으러 ...</a></li>
             </ul>
     </header>
-        <H1 class="title">당신의 서재</H1>
+        <H1 class="title">{{ request.user.username }}님의 서재</H1>
         {% if messages %}
         <ul class="messages">
             {% for message in messages %}
