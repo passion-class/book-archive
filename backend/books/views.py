@@ -15,9 +15,9 @@ from django.forms.models import model_to_dict
 def search_book(request): # 책 검색 기능
     form = BookSearchForm()
     results = []
-    searched = False
     books = []
-    book_data_json = ""
+    book_data_json = "[]"
+    searched = False
     print("[DEBUG] book_data_json:", book_data_json)
 
     if request.method == 'POST':
@@ -37,15 +37,22 @@ def search_book(request): # 책 검색 기능
         elif 'search' in request.POST:
             form = BookSearchForm(request.POST)
             if form.is_valid():
-                title = form.cleaned_data['title']
+                title = form.cleaned_data['title'].strip()
                 searched = True
-            if not title.strip():
+            else:
+                title = ''
+
+            if not title:
                 books = Book.objects.all()
                 book_data_json = json.dumps([model_to_dict(book) for book in books], ensure_ascii=False, default=str)
             else:
-                books = Book.objects.filter(title__icontains=title)
-                if books.exists():
-                        book_data_json = json.dumps([model_to_dict(book) for book in books])
+                books_qs = Book.objects.filter(title__icontains=title)
+                if books_qs.exists():
+                    books = books_qs
+                    book_data_json = json.dumps(
+                        [model_to_dict(book) for book in books],
+                        ensure_ascii=False, default=str
+                    )
                 else:
                     data = fetch_book_data(title)
                     if isinstance(data, list) and all(isinstance(item, dict) for item in data):
@@ -63,7 +70,6 @@ def search_book(request): # 책 검색 기능
                             book_data_json = json.dumps(data, ensure_ascii=False, default=str)
                     else:
                         books = []
-
                         book_data_json = "[]"
                         messages.error(request, 'API에 책 정보를 불러올 수 없습니다')
 
@@ -84,7 +90,7 @@ def search_book(request): # 책 검색 기능
 
 @login_required
 def book_list(request): # 등록된 책 목록 확인 페이지
-    books = Book.objects.all()
+    books = Book.objects.filter(user=request.user)
     num = [0]
     return render(request, 'book_list.html', {'books': books, 'num': num})
 
@@ -117,6 +123,7 @@ def save_selected_books(request): # 책 데이터 저장
             if isbn in selected_isbns:
                 Book.objects.get_or_create(
                     isbn=isbn,
+                    user=request.user,
                     defaults={
                         'title': data.get('title', ''),
                         'authors': data.get('authors', ''),
