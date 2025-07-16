@@ -13,10 +13,12 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user: # 로그인 기능
             log_in = login(request, user)
+            
+            messages.success(request, "어서오세요, 당신의 서재에.")
             return redirect("book:book_list")
         else:
-            error = "아이디 또는 비밀번호가 틀렸습니다"
-            return render(request, 'login.html', {'error': error})
+            messages.error(request, "아이디와 비밀번호를 다시 확인해주세요.")
+            return render(request, 'login.html')
     else: # GET 요청시 페이지 호출
         return render(request, 'login.html')
     

@@ -17,8 +17,10 @@ def signup_view(request):
         if form.is_valid(): # 데이터 유효하면 사용자 정보 db 저장
             print('조건 충족')
             # ipdb.set_trace() # 폼 유효성 검사 후 디버거 실행
-            form.save()
+            user = form.save()
             print('가입 완료')
+            
+            messages.success(request, f"환영합니다, {user.username}님.")
             return redirect("common:login") # 성공시 로그인 페이지로 이동
         else:
             messages.error(request, '입력 정보를 다시 확인해주세요.')
